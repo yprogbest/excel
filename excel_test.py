@@ -9,8 +9,10 @@ if __name__ == "__main__":
     #https://atmarkit.itmedia.co.jp/ait/articles/2203/08/news028.html
     #https://www.shibutan-bloomers.com/python_libraly_openpyxl-9/3126/
 
-    wb = op.load_workbook("/home/ubuntu/conda_src/excel/data/test_ver0.xlsx")# ワークシートの読み込み
+    # wb = op.load_workbook("/home/ubuntu/conda_src/excel/data/test_ver0.xlsx")# ワークシートの読み込み
+    wb = op.load_workbook("/home/ubuntu/conda_src/excel/data/sample_chart.xlsx")# ワークシートの読み込み
     ws = wb['Sheet1'] # ワークシートの有効化
+    # ws = wb['Sheet2'] # ワークシートの有効化
 
 
     graph_width = 12
