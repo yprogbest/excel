@@ -1,5 +1,6 @@
 import openpyxl as op
 from openpyxl.chart import LineChart, Reference, Series
+from openpyxl.chart.marker import DataPoint
 
 
 
@@ -11,8 +12,24 @@ if __name__ == "__main__":
 
     # wb = op.load_workbook("/home/ubuntu/conda_src/excel/data/test_ver0.xlsx")# ワークシートの読み込み
     wb = op.load_workbook("/home/ubuntu/conda_src/excel/data/sample_chart.xlsx")# ワークシートの読み込み
-    ws = wb['Sheet1'] # ワークシートの有効化
+    # ws = wb['Sheet1'] # ワークシートの有効化
     # ws = wb['Sheet2'] # ワークシートの有効化
+    ws = wb['Sheet3'] # ワークシートの有効化
+
+
+
+    #既存のグラフをマーカー付き折れ線グラフに指定しておく
+    # すべてのシートをループ
+    for ws_each in wb.worksheets:
+    # シート内のすべてのグラフを取得
+        for chart in ws_each._charts:
+
+            # グラフのシリーズに対してマーカーを有効にする
+            for series in chart.series:
+                series.marker.symbol = "auto"
+                series.smooth = False
+
+
 
 
     graph_width = 12
