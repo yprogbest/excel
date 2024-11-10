@@ -1,5 +1,6 @@
 import openpyxl
 import glob
+import os
 from datetime import datetime
 
 
@@ -35,11 +36,10 @@ def get_repws(repfileList):
 # main.xlsxに新しくシートを作成し、「レポート」シートの内容をコピーする
 '''
 param
-- rootName: ルートディレクトリのパス
+- mainFileName: main.xlsxファイルの絶対パス
 - repwsList: 「レポート」シートを格納したリスト
 '''
-def write_repdata(rootName, repwsList):
-    mainFileName = f'{rootName}/main.xlsx'
+def write_repdata(mainFileName, repwsList):
     mainwb = openpyxl.load_workbook(mainFileName) # main.xlsxファイルをロードする
 
     for repws in repwsList:
@@ -70,10 +70,12 @@ def write_repdata(rootName, repwsList):
 
 
 if __name__ == '__main__':
-    rootName = '/home/ubuntu/conda_src/excel/!他のExcelファイルからシートを取得/data'
+    mainFileName = '/home/ubuntu/conda_src/excel/!他のExcelファイルからシートを取得/data/main.xlsx' # main.xlsxファイルの絶対パス
+    
+    rootName = os.path.dirname(mainFileName) # ルートディレクトリのパス
     id = '1234-5678'
     stDate = '20241007'
 
     repfileList = get_repfile(rootName, id, stDate) # 「レポート」シートを格納したExcelファイルのリスト
     repwsList = get_repws(repfileList) # 「レポート」シートのリスト
-    write_repdata(rootName, repwsList) # main.xlsxに新しくシートを作成し、「レポート」シートの内容をコピーする
+    write_repdata(mainFileName, repwsList) # main.xlsxに新しくシートを作成し、「レポート」シートの内容をコピーする
