@@ -52,7 +52,12 @@ def write_repdata(rootName, repwsList):
         repwsName = f'{dyear:04}_{dmonth:02}_{dday:02}' # main.xlsxに新しく作成するシート名
         # 既にシートが存在するか確認する
         if repwsName not in mainwb.sheetnames:
-            mainwb.create_sheet(repwsName) # main.xlsxに新しいシートを作成する
+            mainwb.create_sheet(title=repwsName) # main.xlsxに新しいシートを作成する
+            # main.xlsxに作成したシートに「レポート」シートの内容をコピーする
+            for rowNum, row in enumerate(repws.rows):
+                for colNum, col in enumerate(row):
+                    # main.xlsxに新しく作成したシートに、「レポート」シートの内容をコピーする
+                    mainwb[repwsName].cell(row=rowNum+1, column=colNum+1).value = col.value
         else:
             print(f'{repwsName}は既に存在しています。')
 
